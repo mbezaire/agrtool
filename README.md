@@ -1,2 +1,2 @@
 # agrtool
- Python package to assist with Gradescope autograders for Java files
+ Tools written in Python for autograders of Java programs
