@@ -1,18 +1,9 @@
 import json
 import os
 import re
+from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
-localtest = False
-driver = 'TesterJP'
-if os.path.exists('/autograder/source'):
-    RESULTS_DIR =  '/autograder/results/'
-    LOG_DIR = '/autograder/source/'    
-else:
-    localtest = True
-    RESULTS_DIR = './' # '/autograder/results/'
-    LOG_DIR = './' #'/autograder/source/'
-    
-RESULTS_FINAL = RESULTS_DIR + 'results.json'
+driver = 'TesterJP' # client code class name
 
 def main():
     # This will be store the combination of all of the individual test results.
@@ -34,9 +25,15 @@ def main():
     # Write the combined results to the file that Gradescope expects.
     f = open(RESULTS_FINAL, 'w')
     json.dump(results_all, f, indent=2)
-    f.close()
+    f.close()  
 
-        
+if __name__ == "__main__":
+    main()
+
+"""
+If your autograder uses reflection, you can get some very nested exceptions like:
+
+       
     samplestr = 'Exception in thread "main" java.lang.reflect.InvocationTargetException\n' +\
         "at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)" +\
         "at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)" +\
@@ -45,7 +42,4 @@ def main():
         "at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)" +\
         "at ConstructorTester.newInstance(ConstructorTester.java:29)" +\
         "at TesterJP.testSubmission(TesterJP.java:70)"
-    
-
-if __name__ == "__main__":
-    main()
+"""

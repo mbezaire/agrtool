@@ -1,19 +1,10 @@
 import json
 import os
 import re
+from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
-localtest = False
-driver = 'TesterJP'
-
-if os.path.exists('/autograder/source'):
-    RESULTS_DIR =  '/autograder/results/'
-    LOG_DIR = '/autograder/source/'    
-else:
-    localtest = True
-    RESULTS_DIR = './'
-    LOG_DIR = './'
-    
-RESULTS_FINAL = RESULTS_DIR + 'results.json'
+driver = 'TesterJP' # client code class 
+error_advice = 'check out our error board or ask the CS50 duck or our Stack Overflow site.'
 
 def main():
     # This will be store the combination of all of the individual test results.
@@ -37,7 +28,7 @@ def main():
             if 'cannot be referenced from a static' in edited:
                 msg += "\nIt looks like you may have accidentally declared an\nobject-level method as static. Object-level methods\nlike setters and getters cannot be static (class level),\nthey are meant to be used with specific objects of the class.\n"
             test['output'] +=   re.sub(f'src/{driver}.java:[0-9]*[:]* ', '', msg + "\n" + edited) 
-            test['output'] += "\n\nIf you're not sure what to do with this error, check out our error board or ask the CS50 duck or our Stack Overflow site.\n"
+            test['output'] += "\n\nIf you're not sure what to do with this error, {error_advice}\n"
 
     results_all['tests'] += [test]
 

@@ -2,17 +2,8 @@ from datetime import datetime, timedelta
 import json
 import os
 
+from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
-localtest = False
-if os.path.exists('/autograder/source'):
-    LOG_DIR = '/autograder/source/'    
-    RESULTS_DIR = '/autograder/results/'
-else: # localtest
-    RESULTS_DIR = './test/'
-    LOG_DIR = './test/'
-    localtest = True
-
-RESULTS_FINAL = RESULTS_DIR + 'results.json'
 
 def main():
     # This will store the combination of all of the individual test results.
@@ -20,15 +11,15 @@ def main():
 
     auto_test = {'score': 1,'max_score': 1,'name': 'Project compilation','output': 'Program compiles!','visibility': 'visible'}
     printed_output = ""
-    if os.path.exists('/autograder/source/classes/test_results.txt'):
-        with open('/autograder/source/classes/test_results.txt', 'r') as fin:
+    if os.path.exists(LOG_DIR + 'classes/test_results.txt'):
+        with open(LOG_DIR + 'classes/test_results.txt', 'r') as fin:
             printed_output = fin.read() 
             auto_test['output'] +=   printed_output
 
     error_flag = False
 
-    if os.path.exists('/autograder/source/classes/test_error.txt'):
-        with open('/autograder/source/classes/test_error.txt', 'r') as fin:
+    if os.path.exists(LOG_DIR + 'classes/test_error.txt'):
+        with open(LOG_DIR + 'classes/test_error.txt', 'r') as fin:
             error_string = fin.read() 
             error_string = error_string.replace("Error: Could not find or load the necessary classes","Encountered an error during auto-testing:")
             auto_test['output'] +=   error_string    
@@ -77,13 +68,8 @@ def main():
     if os.path.exists('/autograder/submission_metadata.json'):
         with open('/autograder/submission_metadata.json', 'r') as fin:
             print_history(json.load(fin))
-    elif os.path.exists('submission_metadata_other.json'):
-        with open('submission_metadata_ethan.json', 'r') as fin:
-            f_results = json.load(fin)
-            print_history(f_results)
             
     # check if less than full autograder credit. If so, add a blue entry at top:
-
     score = 0
     total = 0
     for test in results_all['tests']:

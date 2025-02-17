@@ -1,18 +1,9 @@
 import json
 import os
+from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
-driver = 'Driver'
-localtest = False
+driver = 'Driver' # client code class name
 
-if os.path.exists('/autograder/source'):
-    RESULTS_DIR =  '/autograder/results/'
-    LOG_DIR = '/autograder/source/'    
-else:
-    localtest = True
-    RESULTS_DIR = './' # '/autograder/results/'
-    LOG_DIR = './' #'/autograder/source/'
-    
-RESULTS_FINAL = RESULTS_DIR + 'results.json'
 
 def main():
     # This will be store the combination of all of the individual test results.
@@ -20,8 +11,8 @@ def main():
         
     test = {'score': 0,'max_score': 5,'name': f'{driver}.java file','output': f'No {driver}.java file found.\nResubmit with {driver}.java, which must\ncontain code to create your child class object(s).','visibility': 'visible'}
 
-    if os.path.exists('/autograder/source/compile_error.txt'):
-        with open('/autograder/source/compile_error.txt', 'r') as fin:
+    if os.path.exists(LOG_DIR + 'compile_error.txt'):
+        with open(LOG_DIR + 'compile_error.txt', 'r') as fin:
             test['output'] +=   fin.read() 
 
     results_all['tests'] += [test]

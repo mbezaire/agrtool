@@ -7,6 +7,7 @@ Created on Sun Oct  2 21:41:44 2022
 
 import os
 import re  
+import sys
 
 def main():
     clean_files()
@@ -15,7 +16,12 @@ def clean_files(path = None):
     if path:
         cleanfiles = os.listdir(path)
     else:
-        cleanfiles = os.listdir()
+        if len(sys.argv) > 1:
+            # there should only be one additional argument if calling it with the path.
+            # ignoring anything else
+            cleanfiles = os.listdir(sys.argv[1])
+        else:
+            cleanfiles = os.listdir()
 
     newfiles = []
 

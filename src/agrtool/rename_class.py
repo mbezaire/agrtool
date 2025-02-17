@@ -9,8 +9,8 @@ import re
 
 def main():
     if len(sys.argv) > 2:
-        file = sys.argv[-1] # "submission/Circle.java" # sys.argv[-1] # "submission/Circle.java" # 
-        realclass =  sys.argv[-2] # "Square" # sys.argv[-2]
+        file = sys.argv[-1]
+        realclass =  sys.argv[-2]
 
         rename(file, realclass)
 

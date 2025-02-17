@@ -1,43 +1,10 @@
 import json
 import os
+from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
 from datetime import datetime, timedelta
 
-localtest = False
-
-if os.path.exists('/autograder/source'):
-    LOG_DIR = '/autograder/source/'    
-    RESULTS_DIR = '/autograder/results/'
-else: # localtest
-    RESULTS_DIR = './test/' # '/autograder/results/'
-    LOG_DIR = './test/' #'/autograder/source/'
-    localtest = True
-
-RESULTS_FINAL = RESULTS_DIR + 'leaderboard.json'
-
-
-
 auto_test = []
-
-# # This will store the combination of all of the individual test results.    
-# error_flag = False;
-
-# if os.path.exists('/autograder/source/classes/test_error.txt'):
-#     with open('/autograder/source/classes/test_error.txt', 'r') as fin:
-#         error_string = fin.read() 
-#         error_string = error_string.replace("Error: Could not find or load the necessary classes","Encountered an error during auto-testing:")
-#         auto_test['output'] +=   error_string    
-#         if len(error_string)>1:
-#             error_flag = True
-            
-# if (error_flag):
-#     auto_test.append({"name": "Errors", "value": 1, "order": "asc"})
-# else:
-#     auto_test.append({"name": "Errors", "value": 0, "order": "asc"})
-  
-# {"name": "Accuracy", "value": .926},
-    
-
 
 def getdate(datestr):
     subdate = datetime.strftime(datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3),"%b %d, %I:%M:%S %p")
@@ -75,9 +42,6 @@ def main():
     if os.path.exists('/autograder/submission_metadata.json'):
         with open('/autograder/submission_metadata.json', 'r') as fin:
             submitters, first_time = get_sub_data(json.load(fin))
-    # elif os.path.exists('submission_metadata_other.json'):
-    #     with open('submission_metadata_ethan.json', 'r') as fin:
-    #         submitters, first_time = get_sub_data(json.load(fin))
 
     numstars = 5
     if submitters < 2:
