@@ -1,5 +1,5 @@
 API Reference
 =============
 
-.. automodule:: cleanupfiles
+.. automodule:: agrtool.cleanupfiles
    :members:
