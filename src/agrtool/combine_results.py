@@ -128,14 +128,29 @@ def getdate(datestr):
     then converts the datetime back to a string, formatted
     differently than the input.
 
-    Args:
-        datestr (str): A string containing a datetime stamp
-
-    Returns:
-        str: A datetime string, formatted differently, representing
+    :param datestr: A string containing a datetime stamp
+    :type datestr: str
+    :return: A datetime string, formatted differently, representing
         the datetime from the string parameter (with three hours
         added for US East Coast time)
+    :rtype: str
     """
+
+    # Convert a Gradescope datetime stamp to a datetime object
+
+    # This function takes in a string of a Gradescope datetime
+    # stamp (probably the submission time) and converts it into
+    # a datetime object, adds 3 hours (for US Eastern time) and
+    # then converts the datetime back to a string, formatted
+    # differently than the input.
+
+    # Args:
+    #     datestr (str): A string containing a datetime stamp
+
+    # Returns:
+    #     str: A datetime string, formatted differently, representing
+    #     the datetime from the string parameter (with three hours
+    #     added for US East Coast time)
 
     subdate = datetime.strftime(datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3),"%b %d, %I:%M:%S %p")
     return subdate
