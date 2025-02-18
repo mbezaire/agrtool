@@ -20,7 +20,7 @@ def check_client():
     # This will be store the combination of all of the individual test results.
     results_all = {'tests': []}
         
-    test = {'score': 0,'max_score': 5,'name': f'{driver}.java file','output': f'No {driver}.java file found.\nResubmit with {driver}.java, which must\ncontain code to create your child class object(s).','visibility': 'visible'}
+    test = {'score': 0,'max_score': 5,'name': f'{driver}.java file','output': f'No {driver}.java file found.\nResubmit your files, including {driver}.java, which must\ncontain code to create your child class object(s).','visibility': 'visible'}
 
     if os.path.exists(LOG_DIR + 'compile_error.txt'):
         with open(LOG_DIR + 'compile_error.txt', 'r') as fin:

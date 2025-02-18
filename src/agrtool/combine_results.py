@@ -3,7 +3,7 @@ import json
 import os
 
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
-
+from guidance import email_teacher_incorrect_grader, help_string, what_next
 def main():
     generate_results()
 
@@ -71,7 +71,7 @@ def generate_results():
                 results_all['leaderboard'] = f_results
             else:
                 if type(f_results) == list:
-                    results_all['tests'] += [{"name":"Autograder Error","output":"not all results were loaded correctly - email Dr. Bezaire a link to this page"},
+                    results_all['tests'] += [{"name":"Autograder Error","output":email_teacher_incorrect_grader},
                                             {"name":"json issues at positions:","output":", ".join([str(i) for i in f_results]), "visibility":"hidden"}]
                                             #{"name":"json:","output":mystr, "visibility":"hidden"}]
                     print(mystr)
@@ -99,15 +99,12 @@ def generate_results():
         total += test['max_score']
 
     if score < total:
-        helpstr = "This code doesn't pass all the autograder checks yet.\nLook at the feedback below for details.\n" + \
-                    "If you're still stuck after, use the <a target=\"_blank\" href=\"https://udl4cs.education.ufl.edu/debugging-detective/\">Debugging Detective</a>"
-        test = {"output_format": "html", "output":helpstr}
+        test = {"output_format": "html", "output":help_string}
         results_all['tests'].insert(0, test)
 
-    # else:
-    #     helpstr = "All logic checks passed!\nWould you like to add a README for this assignment with some notes?"
-    #     test = {"output_format": "html", "output":helpstr}
-    #     results_all['tests'].insert(0, test)
+    elif len(what_next) > 0:
+        test = {"output_format": "html", "output":what_next}
+        results_all['tests'].insert(0, test)
 
     # Write the combined results to the file that Gradescope expects.
     f = open(RESULTS_FINAL, 'w') # type: ignore - imported from checklocal

@@ -43,7 +43,8 @@ if __name__ == "__main__":
     main()
 
 """
-If your autograder uses reflection, you can get some very nested exceptions like:
+Note: If your autograder uses reflection, 
+you can get some very nested exceptions like:
 
        
     samplestr = 'Exception in thread "main" java.lang.reflect.InvocationTargetException\n' +\
