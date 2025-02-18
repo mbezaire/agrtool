@@ -163,12 +163,10 @@ def makedate(datestr):
     a datetime object. It also adds 3 hours to account for the
     timezones (assuming the user is on US East Coast)
 
-    Args:
-        datestr (str): A string containing a datetime stamp
-
-    Returns:
-        datetime object: A datetime object representing the
-        datetime from the string parameter
+    :param datestr: A string containing a datetime stamp
+    :type datestr: str
+    :return: A datetime object representing the datetime from the string parameter
+    :rtype: datetime object
     """
 
     return datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3)

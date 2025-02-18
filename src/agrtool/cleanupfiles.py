@@ -1,5 +1,13 @@
-# -*- coding: utf-8 -*-
-
+"""This module can be called to cleanup file names by removing version numbers.
+    
+It will remove the automatic version numbering applied by the Mac or PC OS when
+multiple copies of the same file are saved in a directory. This module assumes
+there are no duplicate file names in the current path. It can remove the
+numbering from all files with particular extensions in a directory. If called 
+with a path as a command line argument, the file names in that directory will be 
+cleaned. If called without a command line argument, the files in the current 
+directory will be cleaned.
+"""
 import os
 import re  
 import sys
@@ -17,10 +25,10 @@ def clean_files(path = None):
     (Mac) becomes FileName.java or data (2).txt (PC) becomes data.txt.
     Rename the files in the folder with the cleaned names.
 
-    Args:
-        path (Path/str, optional): a Path or str object that points to
-        the folder where the file names are to be cleaned. Defaults to
-        None. If None, the current path is used.
+    :param path: a Path or str object that points to the folder
+        where the file names are to be cleaned. If None, the 
+        current path is used. defaults to None
+    :type path: Path/str, optional
     """
 
     if path:
@@ -51,14 +59,12 @@ def clean_name(name, exts = ['.java','.py','.txt','.csv','.c']):
     but the data file no longer matches the hard-coded name due to the
     number being added to the file name.
 
-    Args:
-        name (str): Name of file
-        exts (list, optional): List of extensions for which the file names
-        should be cleaned of any numbers. Defaults to 
-        ['.java','.py','.txt','.csv','.c'].
-
-    Returns:
-        str: A cleaned version of the name (without any number versions)
+    :param name: Name of file
+    :type name: str
+    :param exts: List of extensions for which the file names should be cleaned of any numbers, defaults to ['.java','.py','.txt','.csv','.c'].
+    :type exts: list, optional.
+    :return: A cleaned version of the name (without any number versions)
+    :rtype: str
     """
 
     if type(exts) == list:
