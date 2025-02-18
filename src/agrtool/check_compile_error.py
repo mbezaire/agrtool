@@ -9,7 +9,7 @@ more than once per line in the error file.
 
 import os
 from pathlib import Path
-from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
+from .checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
 def main(pth = LOG_DIR):
     check_unchecked(pth)

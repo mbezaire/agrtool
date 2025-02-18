@@ -10,8 +10,8 @@ from datetime import datetime, timedelta
 import json
 import os
 
-from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
-from guidance import email_teacher_incorrect_grader, help_string, what_next
+from .checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
+from .guidance import email_teacher_incorrect_grader, help_string, what_next
 def main():
     generate_results()
 

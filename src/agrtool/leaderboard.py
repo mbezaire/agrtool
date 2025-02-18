@@ -11,8 +11,8 @@ key, it includes a leaderboard that is viewable to submitters.
 
 import json
 import os
-from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
-from combine_results import makedate, getdate, lateness
+from .checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
+from .combine_results import makedate, getdate, lateness
 
 auto_test = []
 

@@ -8,7 +8,7 @@ Include any error specifices in the output.
 import json
 import os
 import re
-from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
+from .checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
 driver = 'TesterJP' # client code class name
 
