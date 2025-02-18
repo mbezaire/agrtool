@@ -6,6 +6,17 @@ driver = 'Driver' # client code class name
 
 
 def main():
+    check_client()
+
+def check_client():
+    """ Produce a result file with one failed test for missing client
+
+    If an expected client file is missing, the program may not run.
+    This function will check for the required file (driver) / class.
+    If the file is not found, this function will create a results
+    file (for the autograder in Gradescope) to indicate the failure.
+    """
+
     # This will be store the combination of all of the individual test results.
     results_all = {'tests': []}
         
@@ -18,7 +29,7 @@ def main():
     results_all['tests'] += [test]
 
     # Write the combined results to the file that Gradescope expects.
-    f = open(RESULTS_FINAL, 'w')
+    f = open(RESULTS_FINAL, 'w') # type: ignore - imported from checklocal
     json.dump(results_all, f, indent=2)
     f.close()
 

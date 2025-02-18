@@ -10,9 +10,24 @@ import re
 import sys
 
 def main():
+    # call without arguments to use the command line arguments
     clean_files()
 
 def clean_files(path = None):
+    """Given a path to a folder of files, clean the file names
+
+    Get a list of all the file names in the folder. For files with
+    extensions in the default list (or other supplied list), remove
+    any occurrences of numbers added by Mac or PC, like FileName-1.java
+    (Mac) becomes FileName.java or data (2).txt (PC) becomes data.txt.
+    Rename the files in the folder with the cleaned names.
+
+    Args:
+        path (Path/str, optional): a Path or str object that points to
+        the folder where the file names are to be cleaned. Defaults to
+        None. If None, the current path is used.
+    """
+
     if path:
         cleanfiles = os.listdir(path)
     else:
@@ -32,6 +47,25 @@ def clean_files(path = None):
         os.rename(os.path.join(path, of), os.path.join(path,nf))
 
 def clean_name(name, exts = ['.java','.py','.txt','.csv','.c']):
+    """Remove number versions automatically added to files on pc or Mac
+
+    When a file of the same name is saved in the same directory, a number
+    is often added to the end of the name of the additional file(s). This
+    can cause problems for Java class source code where the file and the
+    class name need to match, or for programs that read in from data files
+    but the data file no longer matches the hard-coded name due to the
+    number being added to the file name.
+
+    Args:
+        name (str): Name of file
+        exts (list, optional): List of extensions for which the file names
+        should be cleaned of any numbers. Defaults to 
+        ['.java','.py','.txt','.csv','.c'].
+
+    Returns:
+        str: A cleaned version of the name (without any number versions)
+    """
+
     if type(exts) == list:
         if len(exts) == 0 or not any(name.endswith(extension) for extension in exts):
             return name

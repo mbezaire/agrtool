@@ -1,36 +1,11 @@
 import json
 import os
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
-
-from datetime import datetime, timedelta
+from combine_results import makedate, getdate, lateness
 
 auto_test = []
 
-def getdate(datestr):
-    subdate = datetime.strftime(datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3),"%b %d, %I:%M:%S %p")
-    return subdate
-
-def makedate(datestr):
-    return datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3)
-    
-def lateness(f_results):
-    numsubs = len(f_results['previous_submissions'])
-    if f_results['created_at'] <= f_results['users'][0]['assignment']['due_date']:
-        return 0
-    days_late = makedate(f_results['created_at']) - makedate(f_results['users'][0]['assignment']['due_date'])
-    late_score = max(0.5, days_late.total_seconds()/(24*3600))
-    
-    if f_results['previous_submissions'][0]['submission_time'] <= f_results['users'][0]['assignment']['due_date']:
-        n = 0
-        for sub in f_results['previous_submissions']:
-            if sub['submission_time'] <= f_results['users'][0]['assignment']['due_date']:
-                n += 1
-        reprieve =  (n/(len(f_results['previous_submissions']) + 1))*.5 + .5
-    else:
-        reprieve = 1
-        
-    return late_score * reprieve
- 
+RESULTS_FINAL = RESULTS_DIR + 'leaderboard.json'
 
 def get_sub_data(subdata):
     submitters = len(subdata['users'])
@@ -38,6 +13,16 @@ def get_sub_data(subdata):
     return submitters, subbed    
     
 def main():
+    leaderboard()
+
+def leaderboard():
+    """Create a leaderboard json for use by Gradescope
+
+    For this submission, read in the submission_metadata.json created
+    by Gradescope, get the submitters and their timeliness, and then
+    create the leaderboard json structure and data, and write it out
+    to leaderboard.json for Gradescope to create the leaderboard from.
+    """
 
     if os.path.exists('/autograder/submission_metadata.json'):
         with open('/autograder/submission_metadata.json', 'r') as fin:

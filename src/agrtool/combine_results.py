@@ -4,8 +4,29 @@ import os
 
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
 
-
 def main():
+    generate_results()
+
+def generate_results():
+    """Create a summary results json for Gradescope from all results
+
+    Create a placeholder output that reports on compilation and running
+    of the program. Then, loop through all the other (results) files in
+    the results directory. If there are any results files aside from the
+    leaderboard, remove the placeholder output and open the results
+    file(s) and load them in. Ensure the json is correct. Add some
+    general feedback or tips for students based on their overall score.
+
+    If there is a leaderboard file available, load it in as the
+    leaderboard field contents.
+
+    Create a new json structure from all the available results and
+    save it in a results file where Gradescope can find it.
+
+    Then, print out the history of submissions so it is available
+    in the autograder results on the Gradescope site.
+    """
+
     # This will store the combination of all of the individual test results.
     results_all = {'tests': []}
 
@@ -89,15 +110,96 @@ def main():
     #     results_all['tests'].insert(0, test)
 
     # Write the combined results to the file that Gradescope expects.
-    f = open(RESULTS_FINAL, 'w')
+    f = open(RESULTS_FINAL, 'w') # type: ignore - imported from checklocal
     json.dump(results_all, f, indent=2)
     f.close()
 
 def getdate(datestr):
+    """Convert a Gradescope datetime stamp to a datetime object
+
+    This function takes in a string of a Gradescope datetime
+    stamp (probably the submission time) and converts it into
+    a datetime object, adds 3 hours (for US Eastern time) and
+    then converts the datetime back to a string, formatted
+    differently than the input.
+
+    Args:
+        datestr (str): A string containing a datetime stamp
+
+    Returns:
+        str: A datetime string, formatted differently, representing
+        the datetime from the string parameter (with three hours
+        added for US East Coast time)
+    """
+
     subdate = datetime.strftime(datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3),"%b %d, %I:%M:%S %p")
     return subdate
 
+def makedate(datestr):
+    """Convert a Gradescope datetime stamp to a datetime object
+
+    This function takes in a string of a Gradescope datetime
+    stamp (probably the submission time) and converts it into
+    a datetime object. It also adds 3 hours to account for the
+    timezones (assuming the user is on US East Coast)
+
+    Args:
+        datestr (str): A string containing a datetime stamp
+
+    Returns:
+        datetime object: A datetime object representing the
+        datetime from the string parameter
+    """
+
+    return datetime.strptime(datestr, "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours = 3)
+
+def lateness(f_results):
+    """Computes the penalty for late submissions
+
+    Given the submission date(s) and the due date, calculates how much of
+    a penalty to assess. If the student turns in their work before the
+    due date, this function returns 0. If the student turned in multiple
+    submissions, and the first one was before the due date but the latest
+    one is after the due date, the student's penalty will be smaller. The
+    penalty is capped at 0.5.
+
+    Args:
+        f_results (dict): a dictionary of Gradescope submission data
+
+    Returns:
+        float or int: size of the penality to assess, between 0 and 0.5
+    """
+
+    # numsubs = len(f_results['previous_submissions'])
+    if f_results['created_at'] <= f_results['users'][0]['assignment']['due_date']:
+        return 0
+    days_late = makedate(f_results['created_at']) - makedate(f_results['users'][0]['assignment']['due_date'])
+    late_score = max(0.5, days_late.total_seconds()/(24*3600))
+    
+    if f_results['previous_submissions'][0]['submission_time'] <= f_results['users'][0]['assignment']['due_date']:
+        n = 0
+        for sub in f_results['previous_submissions']:
+            if sub['submission_time'] <= f_results['users'][0]['assignment']['due_date']:
+                n += 1
+        reprieve =  (n/(len(f_results['previous_submissions']) + 1))*.5 + .5
+    else:
+        reprieve = 1
+        
+    return late_score * reprieve
+ 
+
 def print_history(f_results):
+    """Reads submission metadata, prints out all submission datetimes and points
+
+    Given a json structure (dict) read from a file of Gradescope submission
+    metadata, this function extracts all submission datetimes and points achieved
+    and prints them out, which can be collected into a hidden autograder listing
+    to view while grading or reviewing submissions on the Gradescope site.
+
+    Args:
+        f_results (json): a dict from a json file of Gradescope submission data
+    """
+
     numsubs = len(f_results['previous_submissions'])
     if numsubs == 0:
         print("This is the first submission")
@@ -133,6 +235,22 @@ def print_history(f_results):
 
 
 def getokjson(fname):
+    """Cleans common escape-related errors from a json file
+
+    This function opens up a json file (fname), reads it in, and
+    while there are any errors parsing the json content of the file,
+    it checks the error location for any un-escaped or improperly
+    escaped characters, swaps them out, and continues checking and
+    swapping (up to 10 times). Then, it creates the json structure
+    and returns that along with the (corrected) string input.
+
+    Args:
+        fname (str): name of a json file
+
+    Returns:
+        json, str: a json structure, and stringified json
+    """
+
     fname = RESULTS_DIR + fname
     check = 10
     f = open(fname, 'r')

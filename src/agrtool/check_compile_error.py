@@ -6,6 +6,16 @@ def main(pth = LOG_DIR):
     check_unchecked(pth)
 
 def check_unchecked(pth):
+    """ Remove an unnecessary error file when compilation succeeded
+
+    If the program compiled successfully but left a warning message,
+    an error file is created and could cause later functionality to
+    wrongly indicate the program did not compile. This program checks
+    for a specific common "false positive" - if the file contains the
+    word "unchecked" and only a couple lines, remove the file so it
+    doesn't wrongly appear that the program failed to compile.
+    """
+        
     # convert pth argument to Path if it is a str
     if type(pth) == str:
         pth = Path(pth)

@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Dec 12 14:05:17 2023
-
-@author: marianne.bezaire
+See rename function for details.
 """
 import sys
 import re
@@ -15,6 +13,20 @@ def main():
         rename(file, realclass)
 
 def rename(file, realclass):
+    """Renames a Java class and all usages within the class file
+
+    Given a desired filename, this function uses regex to find
+    all usages of the class (declaration, instantiation) and
+    the class header. It renames all of them to the realclass
+    argument and then saves the updated file with the realclass
+    file name.
+
+    Args:
+        file (str): name/path of the file to rename/fix naming
+        realclass (str): desired name of the class
+    """
+
+
     patt = re.compile("public[\s ]+class[\s ]+([a-zA-Z0-9]+)")
 
     with open(file,"r") as f:

@@ -6,17 +6,16 @@ SUB_DIR = '.'
 LOG_DIR = './test/'
 localtest = True
 
-# check if running in Gradescope docker or local.
-# assume local if there's no submission path
-if os.path.exists(gradescope_path):
-    SUB_DIR = '/autograder/submission/'
-    LOG_DIR = '/autograder/source/'    
-    RESULTS_DIR = '/autograder/results/'
-    localtest = False
-
-RESULTS_FINAL = RESULTS_DIR + 'results.json'
-
 def check():
+    """Set the path variables to Gradescope paths or local paths.
+
+    Check if a given path exists, one that is likely found on
+    Gradescope but not in a local environment. If it is found, set
+    all the path variables according to the expected Gradescope
+    environment. If the path is not found, set all the variables
+    according to the expected local environment.
+    """
+
     if os.path.exists(gradescope_path):
         SUB_DIR = '/autograder/submission/'
         LOG_DIR = '/autograder/source/'    
@@ -29,3 +28,7 @@ def check():
         localtest = True
 
     RESULTS_FINAL = RESULTS_DIR + 'results.json'
+
+
+if __name__ == "__main__":
+    check()
