@@ -1,3 +1,10 @@
+"""
+Author: Marianne Case Bezaire
+
+Produce stock autograder output when a runtime error occurs.
+Include any error specifices in the output.
+"""
+
 import json
 import os
 import re

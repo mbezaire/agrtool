@@ -1,3 +1,11 @@
+"""
+Author: Marianne Case Bezaire
+
+Produce a stock autograder output when files fail to
+compile. Include the compilation error message(s) for
+details.
+"""
+
 import json
 import os
 import re

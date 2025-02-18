@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Author: Marianne Case Bezaire
+
 See rename function for details.
 """
 import sys

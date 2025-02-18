@@ -1,3 +1,11 @@
+"""
+Author: Marianne Case Bezaire
+
+Combine all results json files created by different
+processes into one singular results.json for Gradescope
+to create its autograder output from.
+"""
+
 from datetime import datetime, timedelta
 import json
 import os

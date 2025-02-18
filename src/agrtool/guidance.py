@@ -1,4 +1,7 @@
-"""Create strings of guidance for common autograder results
+"""
+Author: Marianne Case Bezaire
+
+Create strings of guidance for common autograder results
 
 For each of the following variables, adjust the docstring
 to your liking; it will be imported by modules that refer

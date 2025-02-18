@@ -1,3 +1,10 @@
+"""
+Author: Marianne Case Bezaire
+
+Create a stock output for autograder when the student
+forgets to upload their client class.
+"""
+
 import json
 import os
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL

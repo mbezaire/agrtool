@@ -1,3 +1,12 @@
+"""
+Author: Marianne Case Bezaire
+
+Remove any compile error flags if they are only warnings
+and compilation actually succeeded. So far this is very
+specific and only removes the file if it sees 'unchecked'
+more than once per line in the error file.
+"""
+
 import os
 from pathlib import Path
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL

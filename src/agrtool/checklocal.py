@@ -1,3 +1,11 @@
+"""
+Author: Marianne Case Bezaire
+
+Determine whether this code is running in a Gradescope
+Docker environment or on a local machine; set paths
+accordingly.
+"""
+
 import os
 
 gradescope_path = '/autograder/source'

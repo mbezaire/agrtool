@@ -1,3 +1,14 @@
+"""
+Author: Marianne Case Bezaire
+
+Creates a leaderboard (if desired). Modify the logic below
+to adjust the leaderboard categories and weighting. The
+combine_results.py module will incorporate the leaderboard
+logic below into its results.json as a separate key. When
+Gradescope receiveds a results.json with a 'leaderboard'
+key, it includes a leaderboard that is viewable to submitters.
+"""
+
 import json
 import os
 from checklocal import * # gives us localtest, RESULTS_DIR, LOG_DIR, SUB_DIR, RESULTS_FINAL
