@@ -1,5 +1,2 @@
-os
-sys
-re
 sphinx
 sphinx_rtd_theme
