@@ -24,7 +24,7 @@ master_doc = 'index'
 # General information about the project.
 project = 'Autograder Tools'
 copyright = '2025, Marianne Case Bezaire'
-author = 'Marianne Case Bezaire
+author = 'Marianne Case Bezaire'
 
 # -- Sphinx extensions ------------------------------------------------------
 
