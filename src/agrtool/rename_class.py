@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Author: Marianne Case Bezaire
+Correct class name errors.
 
-See rename function for details.
+Given an expected class name, rename the submitted file
+if its name does not match. Also rename any usages of the
+class name inside the file.
 """
 import sys
 import re

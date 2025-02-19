@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Create autograder output when the program produces a runtime exception.
 
 Produce stock autograder output when a runtime error occurs.
 Include any error specifices in the output.

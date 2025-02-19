@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Create data for a leaderboard entry.
 
 Creates a leaderboard (if desired). Modify the logic below
 to adjust the leaderboard categories and weighting. The

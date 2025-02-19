@@ -51,4 +51,4 @@ A sample shell script that uses these modules may look like::
 
 In addition to the shell script above (which would be in the ``run_autograder`` file), you would also need to include the agrtool package (or a list of dependencies to install), the setup.sh file,
 and any other specific files for testing. Zip them up so that they are not within a folder, but
-are at the top level of the zip file. See `Link Gradescope's autograder docs <https://gradescope-autograders.readthedocs.io/>`_ for more instruction.
+are at the top level of the zip file. See `Gradescope's autograder docs <https://gradescope-autograders.readthedocs.io/>`_ for more instruction.

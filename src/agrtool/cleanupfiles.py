@@ -70,7 +70,7 @@ def clean_name(name, exts = ['.java','.py','.txt','.csv','.c']):
 
     :param name: Name of file
     :type name: str
-    :param exts: List of extensions for which the file names should be cleaned of any numbers, defaults to ['.java','.py','.txt','.csv','.c'].
+    :param exts: List of extensions for which the file names should be cleaned of any numbers, defaults to ``['.java', '.py', '.txt', '.csv', '.c']``.
     :type exts: list, optional.
     :return: A cleaned version of the name (without any number versions)
     :rtype: str

@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Generate autograder output when compilation fails.
 
 Produce a stock autograder output when files fail to
 compile. Include the compilation error message(s) for

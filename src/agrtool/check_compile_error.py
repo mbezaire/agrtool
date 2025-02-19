@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Remove compile errors from autograder output if they are warnings.
 
 Remove any compile error flags if they are only warnings
 and compilation actually succeeded. So far this is very

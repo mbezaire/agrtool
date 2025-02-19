@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Generate autograder output when submission lacks client code.
 
 Create a stock output for autograder when the student
 forgets to upload their client class.

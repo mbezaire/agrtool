@@ -1,5 +1,5 @@
 """
-Author: Marianne Case Bezaire
+Set paths for local or Gradescope environment.
 
 Determine whether this code is running in a Gradescope
 Docker environment or on a local machine; set paths

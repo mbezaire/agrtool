@@ -1,6 +1,4 @@
 """
-Author: Marianne Case Bezaire
-
 Create strings of guidance for common autograder results
 
 For each of the following variables, adjust the docstring
