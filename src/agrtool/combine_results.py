@@ -1,9 +1,22 @@
 """
-Author: Marianne Case Bezaire
+Create Gradescope-style of results.json results file.
 
 Combine all results json files created by different
 processes into one singular results.json for Gradescope
-to create its autograder output from.
+to read and create its autograder output.
+
+This module looks through all json files in the Gradescope
+results folder, set within the checklocal module, to combine
+into one results json file. It looks to see if any of the
+files are called leaderboard.json and if so, includes the
+contents of that file in a separate leaderboard key of the
+json structure.
+
+Example usage::
+    python combine_results.py
+
+    python -m combine_results
+
 """
 
 from datetime import datetime, timedelta

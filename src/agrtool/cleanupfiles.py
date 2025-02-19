@@ -7,6 +7,15 @@ numbering from all files with particular extensions in a directory. If called
 with a path as a command line argument, the file names in that directory will be 
 cleaned. If called without a command line argument, the files in the current 
 directory will be cleaned.
+
+
+Example usage::
+
+    python cleanupfiles.py path/to/directory
+
+    python cleanupfiles.py # run on the current directory
+
+    python -m cleanupfiles path/to/directory
 """
 import os
 import re  
