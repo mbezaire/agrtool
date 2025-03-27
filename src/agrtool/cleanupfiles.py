@@ -46,8 +46,10 @@ def clean_files(path = None):
         if len(sys.argv) > 1:
             # there should only be one additional argument if calling it with the path.
             # ignoring anything else
+            path = sys.argv[1]
             cleanfiles = os.listdir(sys.argv[1])
         else:
+            path = './'
             cleanfiles = os.listdir()
 
     newfiles = []
